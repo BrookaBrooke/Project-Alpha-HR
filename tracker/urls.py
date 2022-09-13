@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, reverse_lazy
 from django.views.generic.base import RedirectView
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
@@ -26,4 +27,5 @@ urlpatterns = [
         RedirectView.as_view(url=reverse_lazy("list_projects")),
         name="home",
     ),
+    path("accounts/login/", auth_views.LoginView.as_view(), name="login"),
 ]
