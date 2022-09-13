@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block content %}
     <main>
         <div>
@@ -10,14 +10,12 @@
                     <table>
                         <th>Name</th>
                         <th>Number of tasks</th>
-                        {% for project in projects_list %}
-                            <td>
-                                <ol>
-                                    <li>{{ project.name }}</li>
-                                </ol>
-                            </td>
-                            <td></td>
-                        {% endfor %}
+                        <td>
+                            <ol>
+                                {% for project in projects_list %}<li>{{ project.name }}</li>{% endfor %}
+                            </ol>
+                        </td>
+                        <td>tasks</td>
                     </table>
                 </div>
             {% endif %}
