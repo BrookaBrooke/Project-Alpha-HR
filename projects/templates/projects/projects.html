@@ -11,7 +11,11 @@
                         <th>Name</th>
                         <th>Number of tasks</th>
                         {% for project in projects_list %}
-                            <td>{{ project.name }}</td>
+                            <td>
+                                <ol>
+                                    <li>{{ project.name }}</li>
+                                </ol>
+                            </td>
                             <td></td>
                         {% endfor %}
                     </table>
