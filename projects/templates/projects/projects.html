@@ -7,16 +7,19 @@
                 <p>You are not assigned to any projects</p>
             {% else %}
                 <div>
-                    <table>
-                        <th>Name</th>
-                        <th>Number of tasks</th>
-                        <td>
-                            <ol>
-                                {% for project in projects_list %}<li>{{ project.name }}</li>{% endfor %}
-                            </ol>
-                        </td>
-                        <td>tasks</td>
-                    </table>
+                    {% if user.is_authenticated %}
+                        <table class="table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Number of tasks</th>
+                            </tr>
+                            {% for p in project_list %}
+                                <tr>
+                                    <td>{{ p.name }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    {% endif %}
                 </div>
             {% endif %}
         </div>
