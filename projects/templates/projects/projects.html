@@ -3,6 +3,7 @@
     <main>
         <div>
             <h1>My Projects</h1>
+            <a href="{% url 'create_project' %}">Create a new project</a>
             {% for p in projects %}
                 {% if projects == None %}<p>You are not assigned to any projects</p>{% endif %}
             {% endfor %}

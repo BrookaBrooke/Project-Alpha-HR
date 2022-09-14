@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+    <main>
+        <div>
+            <h1>Create a new project</h1>
+            <form method="post">
+                <label for="text">Name:</label>
+                <input type="text" id="name" name="name"/>
+                <label for="description">Description:</label>
+                <textarea name="description">
+</textarea>
+                <label for="members">Members:</label>
+                <select name="members" id="members">
+                </select>
+                <button type="submit">Create</button>
+            </form>
+        </div>
+    </main>
+{% endblock content %}
