@@ -3,25 +3,23 @@
     <main>
         <div>
             <h1>My Projects</h1>
-            {% if projects == None %}
-                <p>You are not assigned to any projects</p>
-            {% else %}
-                <div>
-                    {% if user.is_authenticated %}
-                        <table class="table">
-                            <tr>
-                                <th>Name</th>
-                                <th>Number of tasks</th>
-                            </tr>
-                            {% for p in project_list %}
-                                <tr>
-                                    <td>{{ p.name }}</td>
-                                </tr>
-                            {% endfor %}
-                        </table>
-                    {% endif %}
-                </div>
-            {% endif %}
+            {% for p in projects %}
+                {% if projects == None %}<p>You are not assigned to any projects</p>{% endif %}
+            {% endfor %}
+            <div>
+                {% if user.is_authenticated %}
+                    <table class="table">
+                        <tr>
+                            <th>Name</th>
+                            <th>Number of tasks</th>
+                        </tr>
+                        <tr>
+                            <td>project</td>
+                            <td>tasks</td>
+                        </tr>
+                    </table>
+                {% endif %}
+            </div>
         </div>
     </main>
 {% endblock content %}
