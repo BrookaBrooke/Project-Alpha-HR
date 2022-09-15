@@ -16,7 +16,17 @@
                             <td>{{ t.name }}</td>
                             <td>{{ t.start_date }}</td>
                             <td>{{ t.due_date }}</td>
-                            {% if t == is_completed %}<td>Done</td>{% endif %}
+                            {% if t.is_completed == True %}
+                                <td>Done</td>
+                            {% elif t.is_completed == False %}
+                                <td>
+                                    <form method="post" action="{% url 'show_my_tasks' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="is_completed" value="True"/>
+                                        <button>Complete</button>
+                                    </form>
+                                </td>
+                            {% endif %}
                         </tr>
                     </tbody>
                 </table>
