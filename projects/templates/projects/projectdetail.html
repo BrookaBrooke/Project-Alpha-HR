@@ -13,7 +13,7 @@
                     <th>Assignee</th>
                     <th>Start date</th>
                     <th>Due date</th>
-                    <th>Is Completed</th>
+                    <th>Is completed</th>
                 </tr>
                 <tbody>
                     <tr>
@@ -26,8 +26,8 @@
                         </tr>
                     </tbody>
                 </table>
-                {% if t == None %}<p>This project has no tasks</p>{% endif %}
             {% endfor %}
+            {% if task not in project %}<p>This project has no tasks</p>{% endif %}
         </div>
     </main>
 {% endblock content %}
