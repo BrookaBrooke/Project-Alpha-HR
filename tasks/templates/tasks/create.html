@@ -4,6 +4,7 @@
         <div>
             <h1>Create a new task</h1>
             {% csrf_token %}
+            {{ form.as_p }}
             <form method="post">
                 <input type="text" name="name"/>
                 <input type="text" name="start_date"/>
