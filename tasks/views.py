@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 from tasks.models import Task
+
 
 # Create your views here.
 
@@ -20,3 +23,13 @@ class TaskCreateView(CreateView):
 
     def get_queryset(self):
         return Task.objects.filter(members=self.request.user)
+
+
+class TaskListView(LoginRequiredMixin, ListView):
+    model = Task
+    template_name = "tasks/show_my_tasks.html"
+    task = Task.objects.all()
+    context = {"task_list": task}
+
+    def get_queryset(self):
+        return Task.objects.filter(assignee=self.request.user)
