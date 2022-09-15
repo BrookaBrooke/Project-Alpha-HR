@@ -5,6 +5,7 @@
             <h1>{{ project.name }}</h1>
             <p>{{ project.description }}</p>
             <h2>Tasks</h2>
+            <a href="{% url 'create_task' %}">Create a new task</a>
             <table>
                 <tr>
                     <th>Name</th>

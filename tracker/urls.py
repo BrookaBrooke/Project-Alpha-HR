@@ -18,6 +18,7 @@ from django.urls import path, include, reverse_lazy
 from django.views.generic.base import RedirectView
 from django.contrib.auth import views as auth_views
 from accounts.views import create_user
+from tasks.views import TaskCreateView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -30,4 +31,5 @@ urlpatterns = [
     path("accounts/login/", auth_views.LoginView.as_view(), name="login"),
     path("accounts/logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("accounts/signup/", create_user, name="signup"),
+    path("tasks/create", TaskCreateView.as_view(), name="create_task"),
 ]

@@ -30,3 +30,7 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
     model = Project
     fields = ["name", "description", "members"]
     template_name = "projects/create.html"
+    success_url = reverse_lazy("projects/show_project")
+
+    def get_queryset(self):
+        return Project.objects.filter(members=self.request.user)
