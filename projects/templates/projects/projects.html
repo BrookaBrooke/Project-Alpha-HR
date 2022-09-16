@@ -4,22 +4,23 @@
         <div>
             <h1>My Projects</h1>
             <a href="{% url 'create_project' %}">Create a new project</a>
-            {% for p in projects %}
-                {% if projects == None %}<p>You are not assigned to any projects</p>{% endif %}
-            {% endfor %}
-            <div>
-                {% if user.is_authenticated %}
-                    <table class="table">
-                        <tr>
-                            <th>Name</th>
-                            <th>Number of tasks</th>
-                        </tr>
-                        <tr>
-                            <td>project</td>
-                            <td>tasks</td>
-                        </tr>
-                    </table>
-                {% endif %}
+            {% for p in project_list %}
+                {% if p|length == 0 %}
+                    <p>You are not assigned to any projects</p>
+                {% else %}
+                    <div>
+                        <table class="table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Number of tasks</th>
+                            </tr>
+                            <tr>
+                                <td>{{ p.name }}</td>
+                                <td>{{ task_list|length }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                </table>
             </div>
         </div>
     </main>

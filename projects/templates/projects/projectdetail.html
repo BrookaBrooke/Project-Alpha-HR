@@ -7,27 +7,30 @@
             {{ project.description|markdownify }}
             <h2>Tasks</h2>
             <a href="{% url 'create_task' %}">Create a new task</a>
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Assignee</th>
-                    <th>Start date</th>
-                    <th>Due date</th>
-                    <th>Is completed</th>
-                </tr>
-                <tbody>
+            {% if project.tasks.all|length > 0 %}
+                <table>
                     <tr>
-                        {% for t in project.tasks.all %}
-                            <td>{{ t.name }}</td>
-                            <td>{{ t.assignee }}</td>
-                            <td>{{ t.start_date }}</td>
-                            <td>{{ t.due_date }}</td>
-                            <td>{{ t.is_completed }}</td>
-                        </tr>
+                        <th>Name</th>
+                        <th>Assignee</th>
+                        <th>Start date</th>
+                        <th>Due date</th>
+                        <th>Is completed</th>
+                    </tr>
+                    <tbody>
+                        <tr>
+                            {% for t in project.tasks.all %}
+                                <td>{{ t.name }}</td>
+                                <td>{{ t.assignee }}</td>
+                                <td>{{ t.start_date }}</td>
+                                <td>{{ t.due_date }}</td>
+                                <td>{{ t.is_completed }}</td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
-            {% endfor %}
-            {% if task not in project %}<p>This project has no tasks</p>{% endif %}
+            {% else %}
+                <p>This project has no tasks</p>
+            {% endif %}
         </div>
     </main>
 {% endblock content %}

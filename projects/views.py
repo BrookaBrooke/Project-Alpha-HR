@@ -13,6 +13,7 @@ from projects.models import Project
 class ProjectListView(LoginRequiredMixin, ListView):
     model = Project
     template_name = "projects/projects.html"
+    context = {"project_list": Project}
 
     def get_queryset(self):
         return Project.objects.filter(members=self.request.user)

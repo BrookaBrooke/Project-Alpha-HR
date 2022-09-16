@@ -12,26 +12,29 @@
                 </tr>
                 <tbody>
                     <tr>
-                        {% for t in task_list %}
-                            <td>{{ t.name }}</td>
-                            <td>{{ t.start_date }}</td>
-                            <td>{{ t.due_date }}</td>
-                            {% if t.is_completed == True %}
-                                <td>Done</td>
-                            {% elif t.is_completed == False %}
-                                <td>
-                                    <form method="post" action="{% url 'show_my_tasks' %}">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="is_completed" value="True"/>
-                                        <button>Complete</button>
-                                    </form>
-                                </td>
-                            {% endif %}
-                        </tr>
-                    </tbody>
-                </table>
-                {% if t == None %}<p>You have no tasks</p>{% endif %}
-            {% endfor %}
+                        {% if task_list|length > 0 %}
+                            {% for t in task_list %}
+                                <td>{{ t.name }}</td>
+                                <td>{{ t.start_date }}</td>
+                                <td>{{ t.due_date }}</td>
+                                {% if t.is_completed == True %}
+                                    <td>Done</td>
+                                {% elif t.is_completed == False %}
+                                    <td>
+                                        <form method="post" action="{% url 'show_my_tasks' %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="is_completed" value="True"/>
+                                            <button>Complete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    {% endif %}
+                {% endfor %}
+            {% elif task_list|length == 0 %}
+                <p>You have no tasks</p>
+            {% endif %}
         </div>
     </main>
 {% endblock content %}

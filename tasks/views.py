@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
@@ -9,7 +9,7 @@ from tasks.models import Task
 # Create your views here.
 
 
-class TaskCreateView(CreateView):
+class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Task
     fields = [
         "name",
@@ -19,10 +19,13 @@ class TaskCreateView(CreateView):
         "assignee",
     ]
     template_name = "tasks/create.html"
-    success_url = reverse_lazy("projects/show_project.html")
 
-    def get_queryset(self):
-        return Task.objects.filter(members=self.request.user)
+    def form_valid(self, form):
+        task = form.save(commit=False)
+        task.owner = self.request.user
+        task.save()
+        form.save_m2m()
+        return redirect("show_my_tasks", pk=task.id)
 
 
 class TaskListView(LoginRequiredMixin, ListView):
@@ -35,9 +38,9 @@ class TaskListView(LoginRequiredMixin, ListView):
         return Task.objects.filter(assignee=self.request.user)
 
 
-class TaskUpdateView:
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
     model = Task
     fields = ["is_completed"]
 
     def get_success_url(self) -> str:
-        return reverse_lazy("show_my_tasks")
+        return reverse_lazy("tasks/show_my_tasks")
