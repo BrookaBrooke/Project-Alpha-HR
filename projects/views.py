@@ -20,7 +20,7 @@ class ProjectListView(LoginRequiredMixin, ListView):
 
 class ProjectDetailView(LoginRequiredMixin, DetailView):
     model = Project
-    template_name = "projects/projectdetail.html"
+    template_name = "projects/show_project.html"
 
     def get_queryset(self):
         return Project.objects.filter(members=self.request.user)
