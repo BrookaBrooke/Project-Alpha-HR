@@ -4,6 +4,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from projects.models import Project
+from django.shortcuts import redirect
 
 
 # Create your views here.
@@ -21,6 +22,7 @@ class ProjectListView(LoginRequiredMixin, ListView):
 class ProjectDetailView(LoginRequiredMixin, DetailView):
     model = Project
     template_name = "projects/show_project.html"
+    context = {"project_detail": Project}
 
     def get_queryset(self):
         return Project.objects.filter(members=self.request.user)
@@ -32,5 +34,9 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
     template_name = "projects/create.html"
     success_url = reverse_lazy("projects/show_project")
 
-    def get_queryset(self):
-        return Project.objects.filter(members=self.request.user)
+    def form_valid(self, form):
+        project = form.save(commit=False)
+        project.owner = self.request.user
+        project.save()
+        form.save_m2m()
+        return redirect("show_project", pk=project.id)

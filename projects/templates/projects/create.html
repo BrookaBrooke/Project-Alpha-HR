@@ -4,13 +4,12 @@
         <div>
             <h1>Create a new project</h1>
             <form method="post">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name"/>
-                <label for="description">Description:</label>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="text" name="name"/>
                 <textarea name="description">
-</textarea>
-                <label for="members">Members:</label>
-                <select name="members" id="members">
+                </textarea>
+                <select name="members">
                 </select>
                 <button type="submit">Create</button>
             </form>
