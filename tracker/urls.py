@@ -31,6 +31,6 @@ urlpatterns = [
     path("accounts/login/", auth_views.LoginView.as_view(), name="login"),
     path("accounts/logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("accounts/signup/", create_user, name="signup"),
-    path("tasks/create", TaskCreateView.as_view(), name="create_task"),
+    path("tasks/create/", TaskCreateView.as_view(), name="create_task"),
     path("tasks/mine/", TaskListView.as_view(), name="show_my_tasks"),
 ]

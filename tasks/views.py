@@ -18,21 +18,23 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
         "project",
         "assignee",
     ]
-    template_name = "tasks/create.html"
+    template_name = "tasks/create_task.html"
+    success_url = reverse_lazy("tasks/create_task")
 
     def form_valid(self, form):
         task = form.save(commit=False)
         task.owner = self.request.user
         task.save()
         form.save_m2m()
-        return redirect("show_my_tasks", pk=task.id)
+        return redirect(
+            "show_my_tasks",
+        )
 
 
 class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     template_name = "tasks/show_my_tasks.html"
-    task = Task.objects.all()
-    context = {"task_list": task}
+    context = {"task_list": Task}
 
     def get_queryset(self):
         return Task.objects.filter(assignee=self.request.user)
